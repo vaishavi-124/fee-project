@@ -1,0 +1,152 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  header h1 {
+    float: left;
+    margin: 0;
+  }
+  
+  nav {
+    float: right;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline-block;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+  }
+  
+  nav ul li:hover {
+    background-color: #555;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .hero {
+    background-image: url(WhatsApp\ Image\ 2024-03-03\ at\ 15.10.59_8754974e.jpg);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+  }
+  
+  .hero h2 {
+    margin-bottom: 20px;
+  }
+  
+  .hero form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 250px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+  }
+  
+  .hero form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+  }
+  
+  .hero form button:hover {
+    background-color: #777;
+  }
+  
+  .content {
+    padding: 20px 0;
+  }
+
+  .sign_in_box{
+    /* width: 100%;
+    height: 80vh; */
+    padding: 2.5 rem 0;
+   
+  }
+  .sign_in_box_cont{
+    padding: 3rem 2rem;
+    border-radius:1.25rem;
+    /* border: 6px solid blue; */
+    background-color:white;
+    text-align: center;
+  }
+
+  .title{
+    font-size: 40px;
+    color: rgb(30, 35, 35);
+    margin-bottom: 1rem;
+  }
+
+  .sign-in-descript{
+    color: antiquewhite;
+    margin-bottom: 2rem;
+
+  }
+
+  .sign-in-btn{
+    border: 5px solid #777;
+    background-color: grey;
+    font-size: x-large;
+    text-decoration: none;
+    color: black;
+  }
+
+  .sign_in_img{
+    size: 100px;
+  }
+
+  .sign-in-btn:hover{
+    background-color: blue;
+
+  }
