@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll to Person Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333333; /* Light gray */
+        }
+        .container {
+            padding: 20px;
+            background-color: #CCCCCC;
+            border-radius: 10px;
+            box-shadow: 0 0 10px#666666;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        h1 {
+            color: #343a40; /* Dark gray */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        li a {
+            text-decoration: none;
+            color: #101111; /* Blue */
+            transition: color 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0; /* Light gray */
+            display: inline-block;
+        }
+        li a:hover {
+            background-color: #e0e0e0; /* Light gray - darker shade */
+        }
+        .person {
+            margin-bottom: 40px;
+            background-color: #CCCCCC;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(105, 97, 97, 0.1);
+            padding: 20px;
+        }
+        h2 {
+            color: #343a40; /* Dark gray */
+        }
+        h3{
+            color: rgb(56, 54, 54);
+        }
+        .details {
+            margin-top: 20px;
+            color: #555; /* Gray */
+        }
+        .person_img {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .person_img img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+        .person_img p {
+            margin: 0;
+            color: #555; /* Gray */
+        }
+        .person_info {
+            display: flex;
+            align-items: center;
+        }
+        .person_info img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agents List</h1>
+        <h3>Our highly efficient agents are there to help you . Feel free to contact them whenvever required</h3>
+        <ul>
+            <li><a href="#person1">Michael Rodriguez</a></li>
+            <li><a href="#person2">Sarah Chang</a></li>
+            <li><a href="#person3">David Mark </a></li>
+            <li><a href="#person4">Andie Johnson</a></li>
+            <li><a href="#person5">Jennifer Lee</a></li>
+        </ul>
+    </div>
+
+    <div id="person1" class="person">
+        <h2>Michael Rodriguez
+        </h2>
+        <div class="details">
+            <div class="person_info">
+                <img src="https://www.wearetheincrowd.com/wp-content/uploads/2022/07/Real-Estate-Agent-Condo-201811-001.jpg" alt="">
+                <p>With a background in finance and a passion for real estate, Michael brings a unique perspective to the home buying and selling process. He is known for his analytical approach, helping clients make informed decisions based on market trends and data analysis. Michael's commitment to transparency and honesty ensures that his clients feel confident every step of the way.
+                </p>
+            </div>
+            <h4>Location: Downtown City <br>
+                Contact: Phone: 555-123-4567, Email: michael.rodriguez@example.com</h4>
+        </div>
+    </div>
+
+    <div id="person2" class="person">
+        <h2>Sarah Chang
+        </h2>
+        <div class="details">
+            <div class="person_info">
+                <img src="https://hauzd.com/blog/wp-content/uploads/2022/01/luxury-real-estate-agent-768x432-1.jpeg" alt="">
+                <p>Sarah is a dynamic real estate agent who thrives on building relationships and exceeding client expectations. Her energetic personality and strong negotiation skills make her a standout in the industry. Sarah is dedicated to providing personalized service and going above and beyond to ensure her clients' needs are met. Whether it's finding the perfect starter home or selling a luxury property, Sarah is committed to delivering exceptional results.
+                </p>
+                
+            </div>
+            <h4>Location: Suburban Town <br>
+                Contact: Phone: 555-234-5678, Email: sarah.chang@example.com </h4>
+        </div>
+    </div>
+
+    <div id="person3" class="person">
+        <h2>David Mark        </h2>
+        <div class="details">
+            <div class="person_info">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKsIT5YQdQ20TdGaa7YGN-Zljvt_h4mqiTZQ&usqp=CAU" alt="">
+                <p>David is a tech-savvy real estate agent who leverages the latest tools and technology to streamline the buying and selling process for his clients. With a background in software engineering, he has a deep understanding of how to use data and algorithms to identify the best opportunities in the market. David's innovative approach and commitment to excellence make him a trusted advisor for clients looking to navigate the complexities of real estate transactions.
+                </p>
+                
+            </div>
+            <h4>Location: Coastal Community <br>
+                Contact: Phone: 555-345-6789, Email: david.mark@example.com</h4>
+        </div>
+    </div>
+
+    <div id="person4" class="person">
+        <h2>Andie Johnson</h2>
+        <div class="details">
+            <div class="person_info">
+                <img src="https://www.overseaspropertyalert.com/wp-content/uploads/2016/02/real-estate-agent.jpeg.webp" alt="">
+                <p>Andie Johnson is a dedicated and passionate real estate professional with over 10 years of experience in the industry. Her commitment to providing exceptional service and building long-lasting relationships with her clients has earned her a reputation as a trusted advisor in the real estate market.
+                </p>
+               
+            </div>
+            <h4>Location: Lakeside Estates <br>
+                Contact: Phone: 555-456-7890, Email: andie.johnson@example.com </h4>
+        </div>
+    </div>
+
+    <div id="person5" class="person">
+        <h2>Jennifer Lee
+        </h2>
+        <div class="details">
+            <div class="person_info">
+                <img src="https://cdn.gobankingrates.com/wp-content/uploads/2023/09/real-estate-agent-iStock-1497209453.jpg?webp=1&w=675&quality=75" alt="">
+                <p>Jennifer is a compassionate real estate agent who understands that buying or selling a home is more than just a transaction—it's a life-changing experience. With a background in psychology, she takes the time to listen to her clients' needs and concerns, offering personalized guidance every step of the way. Jennifer's patience, empathy, and attention to detail make her a trusted partner for clients seeking a stress-free real estate experience.</p>
+ 
+            </div>
+            <h4>Location: Urban District <br>
+                Contact: Phone: 555-567-8901, Email: jennifer.lee@example.com</h4>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 50, // Adjusted to provide space between header and person details
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
