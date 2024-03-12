@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bliss Rentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #424141;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .navbar {
+            background-color: #424141;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            /* justify-content: space-between; */
+            /* margin-right: 30px; */
+            align-items: center;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #0a0a09;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-right: 100px; 
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #908e8e;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .search-bar {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 70%;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background-color: #314256;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+        }
+        .property-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+        .property {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .property img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .property-details {
+            padding: 15px;
+            position: relative;
+        }
+        .property-details h2 {
+            margin-top: 0;
+        }
+        .property-details p {
+            margin: 0;
+            color: #666;
+        }
+        .property-details button {
+        position: absolute;
+        top: 60%;
+        right: 10px;
+        transform: translateY(-50%);
+        padding: 8px 16px;
+        background-color: #314256;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .property-details button:hover {
+        background-color: #0a0a09;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999; /* Increase the z-index to ensure the modal is on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #6b6969;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 60%;
+        text-align: center; /* Center the text */
+        position: relative; /* Add relative positioning */
+        color: #0a0a09;
+    }
+
+    .close {
+        color: #1b1b1b;
+        position: absolute; /* Change to absolute positioning */
+        top: 0; /* Adjust the position */
+        right: 0; /* Adjust the position */
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    </style>
+    
+        
+</head>
+<body>
+
+<div class="header">
+    <h1>BlissRental</h1>
+    <h3>Find Your Perfect Home</h3>
+</div>
+
+<div class="navbar">
+    <div class="dropdown" id="priceDropdown">
+        <a href="#">Price</a>
+        <div class="dropdown-content">
+            <a href="#" onclick="updateDropdown('priceDropdown', 'Under $100,000')">Under $100,000</a>
+            <a href="#" onclick="updateDropdown('priceDropdown', '$100,000 - $200,000')">$100,000 - $200,000</a>
+            <a href="#" onclick="updateDropdown('priceDropdown', '$200,000 - $300,000')">$200,000 - $300,000</a>
+            <!-- Add more price ranges as needed -->
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <!-- <p>Do you want to proceed with this property?</p> -->
+    <h1>Do you want to proceed with this property?</h1>
+    <div>
+      <button id="confirmButton">Confirm</button>
+      <button id="cancelButton">Cancel</button>
+    </div>
+  </div>
+</div>
+
+    <div class="dropdown" id="bedsBathsDropdown">
+        <a href="#">Beds & Baths</a>
+        <div class="dropdown-content">
+            <a href="#" onclick="updateDropdown('bedsBathsDropdown', '1+ Beds')">1+ Beds</a>
+            <a href="#" onclick="updateDropdown('bedsBathsDropdown', '2+ Beds')">2+ Beds</a>
+            <a href="#" onclick="updateDropdown('bedsBathsDropdown', '3+ Beds')">3+ Beds</a>
+            <!-- Add more options for beds -->
+            <a href="#" onclick="updateDropdown('bedsBathsDropdown', '1+ Baths')">1+ Baths</a>
+            <a href="#" onclick="updateDropdown('bedsBathsDropdown', '2+ Baths')">2+ Baths</a>
+            <a href="#" onclick="updateDropdown('bedsBathsDropdown', '3+ Baths')">3+ Baths</a>
+            <!-- Add more options for baths -->
+        </div>
+    </div>
+    <div class="dropdown" id="homeTypeDropdown">
+        <a href="#">Home Type</a>
+        <div class="dropdown-content">
+            <a href="#" onclick="updateDropdown('homeTypeDropdown', 'House')">House</a>
+            <a href="#" onclick="updateDropdown('homeTypeDropdown', 'Apartment')">Apartment</a>
+            <a href="#" onclick="updateDropdown('homeTypeDropdown', 'Condo')">Condo</a>
+            <a href="#" onclick="updateDropdown('homeTypeDropdown', 'Townhouse')">Townhouse</a>
+            <!-- Add more home types as needed -->
+        </div>
+    </div>
+    <a href="#">More</a>
+    <!-- Add more links as needed -->
+</div>
+
+<div class="container">
+   <div class="property-list">
+            <div class="property">
+            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D" alt="Property Image">
+            <div class="property-details">
+                <h2>Beautiful Family Home</h2>
+                <p>Price: $300,000</p>
+                <p>Location: City Center</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://media.istockphoto.com/id/1357037904/photo/night-scene-modern-living-room-with-metropolis-view-background-3d-render.jpg?s=612x612&w=0&k=20&c=yEgNdJTppFayIiiXyiCLGLH9g9Ro6Oiv2DLUxUduS5w=" alt="Property Image">
+            <div class="property-details">
+                <h2>Luxury Penthouse</h2>
+                <p>Price: $800,000</p>
+                <p>Location: Downtown</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://thumbs.dreamstime.com/b/cozy-country-home-305924.jpg?w=768" alt="Property Image">
+            <div class="property-details">
+                <h2>Cozy Suburban House</h2>
+                <p>Price: $400,000</p>
+                <p>Location: Suburbia</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://media.istockphoto.com/id/468048716/photo/cottage.jpg?s=612x612&w=0&k=20&c=BfNml-wlbg3m5PrgCiZfiCOMgyv3tQBV_xE6uxwwWK0=" alt="Property Image">
+            <div class="property-details">
+                <h2>Charming Cottage</h2>
+                <p>Price: $250,000</p>
+                <p>Location: Countryside</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://media.istockphoto.com/id/1127580796/photo/3d-illustration-of-a-new-modern-city-loft-apartment.jpg?s=612x612&w=0&k=20&c=fnA4265CyfboDls6iEP8azUGyDxlPgnno9EHkORu-0w=" alt="Property Image">
+            <div class="property-details">
+                <h2>Modern City Loft</h2>
+                <p>Price: $600,000</p>
+                <p>Location: Downtown</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cm9vbXxlbnwwfHwwfHx8MA%3D%3D" alt="Property Image">
+            <div class="property-details">
+                <h2>Spacious Family Apartment</h2>
+                <p>Price: $350,000</p>
+                <p>Location: Suburban Area</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://media.istockphoto.com/id/528487340/photo/beach-living-on-sea-view.jpg?s=612x612&w=0&k=20&c=-txUQWbvHNG6jOAPQrduesK9foBw8hQid6f3Y2GnwYo=" alt="Property Image">
+            <div class="property-details">
+                <h2>Luxurious Beachfront Villa</h2>
+                <p>Price: $1,200,000</p>
+                <p>Location: Coastal Area</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://media.istockphoto.com/id/1432357159/photo/modern-beach-house-with-sea-view-swimming-pool.jpg?s=612x612&w=0&k=20&c=Ydtd2F2ZRNNAJioxbmy3VB9sK0EbZ-VJ5ARymReM5dk=" alt="Property Image">
+            <div class="property-details">
+                <h2>Historic Townhouse</h2>
+                <p>Price: $500,000</p>
+                <p>Location: Old Town</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://st.hzcdn.com/fimgs/pictures/living-rooms/architector-pc-arizona-desert-mountain-retreat-thompson-photographic-img~7ec111770b688421_4304-1-b2df2e0-w360-h360-b0-p0.jpg" alt="Property Image">
+            <div class="property-details">
+                <h2>Mountain Retreat</h2>
+                <p>Price: $700,000</p>
+                <p>Location: Mountain Range</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://media.istockphoto.com/id/954121470/photo/cozy-studio-apartment-design-with-bedroom-and-living-space.jpg?s=612x612&w=0&k=20&c=xAG5R-ZYlzj6Wj-UgFfja9VhEtH83fj8CcAtaLn2ZKI=" alt="Property Image">
+            <div class="property-details">
+                <h2>Urban Studio Apartment</h2>
+                <p>Price: $200,000</p>
+                <p>Location: City Center</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFybWhvdXNlfGVufDB8fDB8fHww" alt="Property Image">
+            <div class="property-details">
+                <h2>Country Farmhouse</h2>
+                <p>Price: $450,000</p>
+                <p>Location: Rural Area</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+        </div>
+        <div class="property">
+            <img src="https://img.freepik.com/premium-photo/gray-sofa-with-gray-marble-pattern-wall-wooden-floorwhite-curtian-3d-illustration_208465-265.jpg?size=626&ext=jpg&ga=GA1.1.963308878.1710149540&semt=ais" alt="Property Image">
+            <div class="property-details">
+                <h2>Modern Urban Condo</h2>
+                <p>Price: $550,000</p>
+                <p>Location: City Center</p>
+                <button class="select-button" onclick="selectProperty()">Select</button>
+            </div>
+           
+        </div>
+</div>
+
+<script>
+    // Function to update dropdown selection
+    function updateDropdown(dropdownId, selectedOption) {
+        document.getElementById(dropdownId).querySelector('a').innerText = selectedOption;
+    }
+
+    // Placeholder function for searching properties
+    function search() {
+        alert("Search functionality is not implemented in this demo.");
+    }
+
+    // Get the modal element
+    var modal = document.getElementById("myModal");
+
+    // Get all elements with class "select-button"
+    var btns = document.getElementsByClassName("select-button");
+
+    // Get the close button for the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Loop through all select buttons and add event listeners to open the modal
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].onclick = openModal;
+    }
+
+    // Event listener for clicking on the close button (x) inside the modal
+    span.onclick = closeModal;
+
+    // Event listener for clicking outside the modal to close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // Get the "Cancel" button
+    var cancelButton = document.getElementById("cancelButton");
+
+    // Event listener for clicking on the "Cancel" button
+    cancelButton.onclick = function() {
+        closeModal();
+        return false; // Prevent default behavior (e.g., scrolling to the bottom of the page)
+    }
+
+    // Function to show the confirmation popup
+   function showConfirmationPopup() {
+    var confirmationModal = document.createElement("div");
+    confirmationModal.className = "modal";
+    confirmationModal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Congratulations!</h1>
+            <img src="party_popper.png" alt="" style="width: 100px; height: 100px;"><br>
+            <p>Your property is confirmed.</p>
+            <p>The owner shall contact you soon.</p>
+        </div>
+    `;
+    document.body.appendChild(confirmationModal);
+    confirmationModal.style.display = "block";
+    document.body.style.overflow = "hidden";
+
+    var closeButton = confirmationModal.querySelector(".close");
+
+    // Event listener for clicking on the close button (x) inside the confirmation popup
+    closeButton.onclick = function() {
+        confirmationModal.style.display = "none";
+        document.body.style.overflow = "auto"; // Restore overflow
+    };
+}
+
+
+    
+
+    // Function to close the confirmation popup
+    function closeConfirmationPopup() {
+        var confirmationModal = document.querySelector(".modal");
+        if (confirmationModal) {
+            confirmationModal.style.display = "none";
+            document.body.style.overflow = "auto"; // Restore overflow
+        }
+        // Add additional logic here if needed
+    }
+
+    // Get the "Confirm" button
+    var confirmButton = document.getElementById("confirmButton");
+
+    // Event listener for clicking on the "Confirm" button
+    confirmButton.onclick = function() {
+        closeModal(); // Close the original modal
+        showConfirmationPopup(); // Show confirmation popup
+    }
+</script>
+
+
+</body>
+</html>
